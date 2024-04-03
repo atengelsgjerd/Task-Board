@@ -34,30 +34,29 @@
             <form id="modalForm">
               <div class="row">
                 <div class="col">
-                  <label for="recipient-name" class="col-form-label">Task Title</label>
+                  <label for="taskTitle" class="col-form-label">Task Title</label>
                   <input type="text" id="taskTitle" class="form-control" placeholder="Task Title" aria-label="First name">
                 </div>
                 <div class="col">
-                  <label for="recipient-name" class="col-form-label">Task Due Date</label>
+                  <label for="datePicker" class="col-form-label">Task Due Date</label>
                   <input type="text" id="datePicker" class="form-control" placeholder="Date" aria-label="Last name">
                 </div>
               </div>
               <div class="mb-3">
-                <label for="message-text" class="col-form-label">Task Description:</label>
+                <label for="taskDescription" class="col-form-label">Task Description:</label>
                 <textarea class="form-control" id="taskDescription"></textarea>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Send message</button>
+            <button type="button" id="confirmTsk" class="btn btn-secondary" data-bs-dismiss="modal">Add Task</button>
           </div>
         </div>
       </div>
     </div>
     <div class="row swim-lanes text-center justify-content-between">
       <div class="col-12 col-lg-4 d-flex">
-        <div id="to-do" class="card border-light mb-3 lane flex-grow-1">
+        <div id="toDo" class="card border-light mb-3 lane flex-grow-1">
           <div class="card-header bg-white">
             <h2 class="card-title mb-1">To Do</h2>
           </div>
@@ -66,13 +65,13 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-lg-4 d-flex">
+      <div class="col-12 col-lg-4 d-flex droppable">
         <div id="in-progress" class="card border-light mb-3 lane flex-grow-1">
           <div class="card-header bg-white">
             <h2 class="card-title mb-1">In Progress</h2>
           </div>
           <div class="card-body bg-light">
-            <div id="in-progress-cards"></div>
+            <div id="in-progress-cards"><p>Drop here</p></div>
           </div>
         </div>
         </div>
