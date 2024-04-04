@@ -10,14 +10,16 @@ const taskDescriptionInput = $("#taskDescription");
 const confirmTaskBtn = $("#confirmTsk");
 const toDoSection = $("#toDo");
 
+//When the button with the id #addTskBtn is clicked, a modal form will show
 taskBtn.on("click", function(){
     $("#formModal").modal("show");
 
-
+    //When the Date input field is clicked into, a datepicker widget appears.
     $("#formModal").on('shown.bs.modal', function() {
         $("#datePicker").datepicker();
     });
-
+    //When the button with the id #confirmTsk is clicked, the information gets saved as an array in local storage and is displayed as a card.
+    
     confirmTaskBtn.on("click", function(){
         
         const modalObject = {
@@ -32,32 +34,45 @@ taskBtn.on("click", function(){
         localStorage.setItem("tasks", JSON.stringify(taskList));
         localStorage.setItem("nextId", nextId + 1);
 
+        taskList.forEach((task) => {
+
+        const taskElement = document.createElement("div");
+        taskElement.dataset.taskId = task.id;
+        taskElement.classList.add("card", "draggable", "text-center", "mb-3");
+        taskElement.style.width = "18rem";
+        taskElement.innerHTML = `
+        <h5 class="card-title">${task.taskTitle}</h5>
+        <h6>${task.taskDueDate}</h6>
+        <p class="card-text">${task.taskDescription}</p>
+        <button class="btn btn-primary" id="deleteBtn">Delete</button>
+        `;
+
+        toDoSection.append(taskElement);
+
         console.log(JSON.parse(localStorage.getItem("tasks")));
+
+        $(taskElement).draggable({
+            start: function(event, ui) {
+                $(this).css("z-index", 1000);
+            },
+            stop: function(event,ui) {
+                $(this).css("z-index", 1);
+            }
+        });
+        toDoSection.on("click", ".card #deleteBtn", function(){
+            const taskId = $(this).closest(".card").data("task-id");
+            taskList = taskList.filter(task => task.id !== taskId);
+            localStorage.setItem("tasks", JSON.stringify(taskList));
+            $(this).parent().remove();
+        });
     });
 });
-
-taskList.forEach((task) => {
-    const taskElement = document.createElement("div");
-    taskElement.classList.add("card", "draggable", "text-center", "mb-3");
-    taskElement.style.width = "18rem";
-    taskElement.innerHTML = `
-    <h5 class="card-title">${task.taskTitle}</h5>
-    <h6>${task.taskDueDate}</h6>
-    <p class="card-text">${task.taskDescription}</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-    `;
+   
     //taskElement.style.position = "absolute";
-    taskElement.style.zIndex = 1;
-    toDoSection.append(taskElement);
+    //taskElement.style.zIndex = 1;
+    
 
-    $(taskElement).draggable({
-        start: function(event, ui) {
-            $(this).css("z-index", 1000);
-        },
-        stop: function(event,ui) {
-            $(this).css("z-index", 1);
-        }
-    });
+   
 });
 
     $(document).ready(function(){
