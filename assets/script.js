@@ -44,8 +44,9 @@ taskList.forEach((task) => {
     <h5 class="card-title">${task.taskTitle}</h5>
     <h6>${task.taskDueDate}</h6>
     <p class="card-text">${task.taskDescription}</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
     `;
-    taskElement.style.position = "absolute";
+    //taskElement.style.position = "absolute";
     taskElement.style.zIndex = 1;
     toDoSection.append(taskElement);
 
