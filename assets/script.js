@@ -22,7 +22,26 @@ function getDaysDifference(dueDate) {
     console.log("due date", dueDateObj);
     return diffDays;
 }
+confirmTaskBtn.on("click", function(){
+    console.log("I'm going to make a card");
+    const modalObject = {
+        id: nextId,
+        taskTitle: taskTitleInput.val(),
+        taskDueDate: dueDateInput.val(),
+        taskDescription: taskDescriptionInput.val(),
+        status: "toDoo"
+    };
 
+    nextId++;
+    taskList.push(modalObject);
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+    localStorage.setItem("nextId", nextId);
+    taskTitleInput.val('');
+    dueDateInput.val('');
+    taskDescriptionInput.val('');
+    renderTaskList();
+return;
+});
 //When the button with the id #addTskBtn is clicked, a modal form will show
 taskBtn.on("click", function(){
     $("#formModal").modal("show");
@@ -33,34 +52,7 @@ taskBtn.on("click", function(){
     });
     //When the button with the id #confirmTsk is clicked, the information gets saved as an array in local storage and is displayed as a card.
     
-    confirmTaskBtn.on("click", function(){
-        
-        const modalObject = {
-            id: nextId,
-            taskTitle: taskTitleInput.val(),
-            taskDueDate: dueDateInput.val(),
-            taskDescription: taskDescriptionInput.val(),
-            status: "toDoo"
-        };
-
-        //Check if task with same details already exists in taskList
-        const existingTask = taskList.find(task =>
-            task.taskTitle === modalObject.taskTitle &&
-            task.taskDueDate === modalObject.taskDueDate &&
-            task.taskDescription === modalObject.taskDescription
-        );
-
-        if (!existingTask) {
-        nextId++;
-        taskList.push(modalObject);
-        localStorage.setItem("tasks", JSON.stringify(taskList));
-        localStorage.setItem("nextId", nextId);
-
-        renderTaskList();
-    } else {
-        alert("Task already exists!");
-    }
-});
+   
    
     
 
@@ -122,6 +114,7 @@ function renderTaskList() {
         } else if (task.status === "inProgress") {
             $('#in-progress-cards').append(taskElement);
         } else {
+            taskElement.classList.add('completed');
             $('#done-cards').append(taskElement);
         }
         

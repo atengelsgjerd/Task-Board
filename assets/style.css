@@ -30,6 +30,10 @@ body {
     background-color: #dfb11c; /* Yellow background for tasks nearing due date */
 }
 
+.completed {
+    background-color: #5cb85c; /* Green background for completed tasks */
+}
+
 .centerCards {
   display: flex;
   flex-direction: column;
